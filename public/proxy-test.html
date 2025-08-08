@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway Proxy Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .iframe-container {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Gateway Proxy Test</h1>
+        <p>This page tests the proxy system for handling CSP-blocked iframes.</p>
+        
+        <div class="test-section">
+            <h3>Test 1: Direct URL (likely to be blocked)</h3>
+            <button onclick="testDirectUrl()">Test Direct URL</button>
+            <div id="direct-status" class="status info">Click button to test</div>
+            <div id="direct-iframe" class="iframe-container" style="display: none;">
+                <iframe id="direct-frame" title="Direct URL Test"></iframe>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 2: Proxy URL (should work)</h3>
+            <button onclick="testProxyUrl()">Test Proxy URL</button>
+            <div id="proxy-status" class="status info">Click button to test</div>
+            <div id="proxy-iframe" class="iframe-container" style="display: none;">
+                <iframe id="proxy-frame" title="Proxy URL Test"></iframe>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 3: Generic Proxy</h3>
+            <button onclick="testGenericProxy()">Test Generic Proxy</button>
+            <div id="generic-status" class="status info">Click button to test</div>
+            <div id="generic-iframe" class="iframe-container" style="display: none;">
+                <iframe id="generic-frame" title="Generic Proxy Test"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testDirectUrl() {
+            const status = document.getElementById('direct-status');
+            const container = document.getElementById('direct-iframe');
+            const iframe = document.getElementById('direct-frame');
+            
+            status.className = 'status info';
+            status.textContent = 'Testing direct URL...';
+            container.style.display = 'block';
+            
+            // Test with a known payment gateway URL
+            iframe.src = 'https://secure.telr.com/test';
+            
+            iframe.onload = () => {
+                status.className = 'status success';
+                status.textContent = 'Direct URL loaded successfully!';
+            };
+            
+            iframe.onerror = () => {
+                status.className = 'status error';
+                status.textContent = 'Direct URL failed (expected due to CSP)';
+            };
+        }
+        
+        function testProxyUrl() {
+            const status = document.getElementById('proxy-status');
+            const container = document.getElementById('proxy-iframe');
+            const iframe = document.getElementById('proxy-frame');
+            
+            status.className = 'status info';
+            status.textContent = 'Testing proxy URL...';
+            container.style.display = 'block';
+            
+            // Test with proxy URL
+            iframe.src = '/telr-proxy/test';
+            
+            iframe.onload = () => {
+                status.className = 'status success';
+                status.textContent = 'Proxy URL loaded successfully!';
+            };
+            
+            iframe.onerror = () => {
+                status.className = 'status error';
+                status.textContent = 'Proxy URL failed';
+            };
+        }
+        
+        function testGenericProxy() {
+            const status = document.getElementById('generic-status');
+            const container = document.getElementById('generic-iframe');
+            const iframe = document.getElementById('generic-frame');
+            
+            status.className = 'status info';
+            status.textContent = 'Testing generic proxy...';
+            container.style.display = 'block';
+            
+            // Test with generic proxy
+            iframe.src = '/gateway-proxy/secure.telr.com/test';
+            
+            iframe.onload = () => {
+                status.className = 'status success';
+                status.textContent = 'Generic proxy loaded successfully!';
+            };
+            
+            iframe.onerror = () => {
+                status.className = 'status error';
+                status.textContent = 'Generic proxy failed';
+            };
+        }
+    </script>
+</body>
+</html> 

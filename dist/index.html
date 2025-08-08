@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="h-full" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/media/app/faviconSellhub.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta
+      name="keywords"
+      content="keenthemes,react,material,kit,application,dashboard,admin,template"
+    />
+    <meta name="author" content="Metronic - Tailwind React Template" />
+            <!-- <script src="https://tap-sdks.b-cdn.net/apple-pay/build-1.2.0/main.js"></script> -->
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' *; frame-src 'self' * https: data: blob:;" /> -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
+    />
+        <title>SellHub</title>
+
+    <style>
+      .dark body {
+        background-color: hsl(240 10% 4%);
+      }
+    </style>
+    <script type="text/javascript" src="https://goSellJSLib.b-cdn.net/v2.0.4/js/gosell.js"></script>
+    <script src="https://tap-sdks.b-cdn.net/card/1.0.2/index.js"></script>
+    <!-- <script src="https://tap-sdks.b-cdn.net/apple-pay/build-1.2.0/main.js"></script> -->
+
+    <script>
+      (function () {
+        try {
+          const theme = localStorage.getItem('theme') || 'system';
+          const prefersDark = window.matchMedia(
+            '(prefers-color-scheme: dark)',
+          ).matches;
+          const isDarkMode =
+            theme === 'dark' || (theme === 'system' && prefersDark);
+          if (isDarkMode) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-dllbalkk.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DsEomVxB.css">
+  </head>
+	<body style="background-color: black;">
+    <div class="flex grow" id="root"></div>
+  </body>
+</html>
